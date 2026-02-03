@@ -1,0 +1,2 @@
+# Smart-Medical-Kiosk-for-Self-Health-Monitoring-in-College-Hostels
+A web-based kiosk system enabling hostel students to self-monitor vital health metrics (BP, heart rate, temperature, oxygen levels) via IoT sensors. Features instant health reports, emergency alerts to wardens/doctors, and secure data dashboards. Built with React.js, Node.js/Express, MongoDB, AWS IoT Core, and Raspberry Pi integration.

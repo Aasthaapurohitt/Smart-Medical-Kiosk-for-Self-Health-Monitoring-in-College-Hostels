@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency - Smart Medical Kiosk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - SAME AS ALL PAGES - NO YELLOW */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Emergency Actions */
+        .emergency-actions {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            text-align: center;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .action-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .call-ambulance { color: #ff6b6b; }
+        .campus-security { color: #feca57; }
+        .medical-help { color: #4ecdc4; }
+        .first-aid { color: #96ceb4; }
+
+        .action-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .action-description {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* SYMMETRICAL EMERGENCY BUTTONS */
+        .emergency-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+            width: 100%;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emergency-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255,107,107,0.6);
+        }
+
+        /* Quick Numbers */
+        .quick-numbers {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .number-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: #f8f9fa;
+            border-radius: 20px;
+        }
+
+        .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .number-label {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #ff6b6b;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-top: 1rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links {
+                gap: 0.5rem;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .actions-grid, .numbers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - NO ACTIVE COLORS -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">🏥 MediKiosk</a>
+            <ul class="nav-links">
+                <li><a href="home2.html">Home</a></li>
+                <li><a href="monitoring.html">Monitoring</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="emergency.html">Emergency</a></li>
+                 <li><a href="recommendation.html"> Consultation</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Emergency Help</h1>
+            <p>Immediate medical assistance available 24/7 for VIT Bhopal students. Campus security and medical support ready to help.</p>
+        </div>
+    </section>
+
+    <!-- Emergency Actions - ALL SYMMETRICAL -->
+    <section class="emergency-actions">
+        <div class="container">
+            <h2 class="section-title">Get Help Immediately</h2>
+            <div class="actions-grid">
+                <!-- AMBULANCE -->
+                <div class="action-card">
+                    <span class="action-icon call-ambulance">🚑</span>
+                    <h3 class="action-title">Ambulance Service</h3>
+                    <p class="action-description">108 Emergency Ambulance for critical conditions</p>
+                    <button class="emergency-btn" onclick="callAmbulance()">
+                        CALL 108 NOW
+                    </button>
+                </div>
+
+                <!-- SECURITY -->
+                <div class="action-card">
+                    <span class="action-icon campus-security">👮</span>
+                    <h3 class="action-title">Campus Security</h3>
+                    <p class="action-description">VIT Security Control Room - Fast response team</p>
+                    <button class="emergency-btn" onclick="callSecurity()">
+                        CALL SECURITY
+                    </button>
+                </div>
+
+                <!-- MEDICAL ROOM -->
+                <div class="action-card">
+                    <span class="action-icon medical-help">🏥</span>
+                    <h3 class="action-title">Medical Room</h3>
+                    <p class="action-description">VIT Medical Centre - Open 24/7 for students</p>
+                    <button class="emergency-btn" onclick="callMedical()">
+                        CALL MEDICAL ROOM
+                    </button>
+                </div>
+
+                <!-- FIRST AID -->
+                <div class="action-card">
+                    <span class="action-icon first-aid">🩹</span>
+                    <h3 class="action-title">First Aid Station</h3>
+                    <p class="action-description">Hostel wardens with first aid kits available</p>
+                    <button class="emergency-btn" onclick="firstAid()">
+                        FIRST AID HELP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Numbers -->
+    <section class="quick-numbers">
+        <div class="container">
+            <h2 class="section-title">Emergency Contacts</h2>
+            <div class="numbers-grid">
+                <div class="number-card">
+                    <div class="number">108</div>
+                    <div class="number-label">Ambulance Service</div>
+                </div>
+                <div class="number-card">
+                    <div class="number">Security</div>
+                    <div class="number-label">Campus Security</div>
+                </div>
+                <div class="number-card">
+                    <div class="number">Medical</div>
+                    <div class="number-label">Medical Room</div>
+                </div>
+                <div class="number-card">
+                    <div class="number">Warden</div>
+                    <div class="number-label">Hostel Warden</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: bold;">Stay Safe</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Continue monitoring your health regularly</p>
+            <a href="monitoring.html" class="cta-button">
+                Health Check
+            </a>
+        </div>
+    </section>
+
+    <script>
+        function callAmbulance() {
+            alert('🚑 Emergency! Dial 108 immediately\n\nAmbulance dispatched to VIT Bhopal');
+        }
+
+        function callSecurity() {
+            alert('👮 Campus Security Alert!\n\nSecurity team dispatched immediately');
+        }
+
+        function callMedical() {
+            alert('🏥 Medical Room notified!\n\nMedical team ready for your arrival');
+        }
+
+        function firstAid() {
+            alert('🩹 First Aid Help!\n\nHostel warden with first aid kit alerted');
+        }
+    </script>
+</body>
+</html>

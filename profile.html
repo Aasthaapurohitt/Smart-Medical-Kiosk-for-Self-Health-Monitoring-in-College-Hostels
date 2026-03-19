@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Smart Medical Kiosk - VIT Bhopal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Profile Avatar */
+        .profile-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Toggle Edit Mode */
+        .edit-toggle {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            display: block;
+            margin-left: auto;
+        }
+
+        .edit-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+        }
+
+        /* Profile Sections */
+        .profile-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-display {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            border-left: 4px solid #667eea;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary { background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%); }
+        .btn-success { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); }
+        .btn-secondary { background: #6c757d; box-shadow: 0 10px 30px rgba(108,117,125,0.3); }
+        .btn-secondary:hover { box-shadow: 0 15px 40px rgba(108,117,125,0.4); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 0.5rem;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .profile-avatar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">🏥 MediKiosk</a>
+            <ul class="nav-links">
+                <li><a href="home2.html">Home</a></li>
+                <li><a href="monitoring.html">Monitoring</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="emergency.html">Emergency</a></li>
+                 <li><a href="recommendation.html"> Consultation</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>👤 Student Profile</h1>
+                <p>Complete your personal and academic information for health monitoring</p>
+            </div>
+
+            <!-- Profile Avatar -->
+            <div class="profile-avatar">
+                <div class="avatar">👨‍🎓</div>
+                <div>
+                    <h2 id="displayFullName" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Rahul Sharma</h2>
+                    <p id="displayStudentId" style="color: #667eea; font-size: 1.2rem; margin-bottom: 0.5rem;">VB2023CS045</p>
+                    <span id="displayCourse" style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">B.Tech CSE - 3rd Year</span>
+                </div>
+            </div>
+
+            <!-- Edit Toggle Button -->
+            <button class="edit-toggle" onclick="toggleEditMode()" id="editBtn">
+                ✏️ Edit Profile
+            </button>
+
+            <!-- Personal Information Section -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <div class="section-title">📋 Personal Information</div>
+                </div>
+                <div class="form-grid" id="personalForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <div class="form-display" id="displayName">Rahul Sharma</div>
+                        <input type="text" class="form-input" id="fullName" value="Rahul Sharma" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Student ID</label>
+                        <div class="form-display" id="displayStudentID">VB2023CS045</div>
+                        <input type="text" class="form-input" id="studentId" value="VB2023CS045" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Gender</label>
+                        <div class="form-display" id="displayGender">Male</div>
+                        <select class="form-select" id="gender" style="display: none;">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Date of Birth</label>
+                        <div class="form-display" id="displayDOB">15/03/2005</div>
+                        <input type="date" class="form-input" id="dob" value="2005-03-15" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Age</label>
+                        <div class="form-display" id="displayAge">21 years</div>
+                        <input type="number" class="form-input" id="age" value="21" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Blood Group</label>
+                        <div class="form-display" id="displayBloodGroup">O+</div>
+                        <select class="form-select" id="bloodGroup" style="display: none;">
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <div class="form-display" id="displayEmail">rahul.sharma2023@vibhopal.ac.in</div>
+                        <input type="email" class="form-input" id="email" value="rahul.sharma2023@vibhopal.ac.in" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Address</label>
+                        <div class="form-display" id="displayAddress">H.No. 123, Gandhi Nagar, Bhopal, MP - 462001</div>
+                        <textarea class="form-input" id="address" style="display: none;" rows="2">H.No. 123, Gandhi Nagar, Bhopal, MP - 462001</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Information Section -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <div class="section-title">🎓 Academic Information</div>
+                </div>
+                <div class="form-grid" id="academicForm">
+                    <div class="form-group">
+                        <label class="form-label">Department</label>
+                        <div class="form-display" id="displayDepartment">Computer Science & Engineering</div>
+                        <input type="text" class="form-input" id="department" value="Computer Science & Engineering" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Course</label>
+                        <div class="form-display" id="displayCourseInfo">B.Tech</div>
+                        <input type="text" class="form-input" id="course" value="B.Tech" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Year</label>
+                        <div class="form-display" id="displayYear">3rd Year</div>
+                        <select class="form-select" id="year" style="display: none;">
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Hosteller/Day Scholar</label>
+                        <div class="form-display" id="displayStatus">Hosteller</div>
+                        <select class="form-select" id="hostelStatus" style="display: none;">
+                            <option value="Hosteller">Hosteller</option>
+                            <option value="Day Scholar">Day Scholar</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency & Guardian Section -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <div class="section-title">🚨 Emergency Contacts</div>
+                </div>
+                <div class="form-grid" id="emergencyForm">
+                    <div class="form-group">
+                        <label class="form-label">Emergency Contact Name</label>
+                        <div class="form-display" id="displayEmergencyName">Mr. Anil Sharma (Father)</div>
+                        <input type="text" class="form-input" id="emergencyName" value="Mr. Anil Sharma (Father)" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Emergency Phone</label>
+                        <div class="form-display" id="displayEmergencyPhone">+91 98765 43210</div>
+                        <input type="tel" class="form-input" id="emergencyPhone" value="+91 98765 43210" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Local Guardian Details</label>
+                        <div class="form-display" id="displayGuardian">Mr. Rajesh Patel (Uncle) - +91 99887 77665 - Flat 4B, Rajendra Nagar, Bhopal</div>
+                        <textarea class="form-input" id="guardianDetails" style="display: none;" rows="2">Mr. Rajesh Patel (Uncle) - +91 99887 77665 - Flat 4B, Rajendra Nagar, Bhopal</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="text-align: center; margin-top: 3rem; display: none;" id="actionButtons">
+                <button class="btn" onclick="saveProfile()">💾 Save Changes</button>
+                <button class="btn btn-secondary" onclick="toggleEditMode()">❌ Cancel</button>
+                <a href="report.html" class="btn btn-primary">📊 Generate Report</a>
+            </div>
+
+            <!-- Quick Actions (View Only) -->
+            <div style="text-align: center; margin-top: 3rem;" id="quickActions">
+                <h3 style="margin-bottom: 2rem; color: #333;">Quick Actions</h3>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="monitoring.html" class="btn">New Health Check</a>
+                    <a href="history.html" class="btn">View History</a>
+                    <a href="emergency.html" class="btn btn-primary">Emergency Contacts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editMode = false;
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            
+            const displays = document.querySelectorAll('.form-display');
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            const editBtn = document.getElementById('editBtn');
+            const actionButtons = document.getElementById('actionButtons');
+            const quickActions = document.getElementById('quickActions');
+            
+            if (editMode) {
+                displays.forEach(display => display.style.display = 'none');
+                inputs.forEach(input => input.style.display = 'block');
+                editBtn.textContent = '✅ Save & Close';
+                editBtn.style.background = '#00b894';
+                actionButtons.style.display = 'block';
+                quickActions.style.display = 'none';
+            } else {
+                displays.forEach(display => display.style.display = 'block');
+                inputs.forEach(input => input.style.display = 'none');
+                editBtn.textContent = '✏️ Edit Profile';
+                editBtn.style.background = '#ff6b6b';
+                actionButtons.style.display = 'none';
+                quickActions.style.display = 'block';
+                updateDisplayValues();
+            }
+        }
+
+        function saveProfile() {
+            // Save all form values to localStorage (for demo)
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                studentId: document.getElementById('studentId').value,
+                gender: document.getElementById('gender').value,
+                dob: document.getElementById('dob').value,
+                age: document.getElementById('age').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                department: document.getElementById('department').value,
+                course: document.getElementById('course').value,
+                year: document.getElementById('year').value,
+                hostelStatus: document.getElementById('hostelStatus').value,
+                emergencyName: document.getElementById('emergencyName').value,
+                emergencyPhone: document.getElementById('emergencyPhone').value,
+                guardianDetails: document.getElementById('guardianDetails').value
+            };
+            
+            localStorage.setItem('studentProfile', JSON.stringify(formData));
+            alert('✅ Profile updated successfully!');
+            toggleEditMode();
+        }
+
+        function updateDisplayValues() {
+            document.getElementById('displayFullName').textContent = document.getElementById('fullName').value;
+            document.getElementById('displayStudentID').textContent = document.getElementById('studentId').value;
+            document.getElementById('displayName').textContent = document.getElementById('fullName').value;
+            document.getElementById('displayGender').textContent = document.getElementById('gender').value;
+            document.getElementById('displayDOB').textContent = new Date(document.getElementById('dob').value).toLocaleDateString('en-IN');
+            document.getElementById('displayAge').textContent = document.getElementById('age').value + ' years';
+            document.getElementById('displayBloodGroup').textContent = document.getElementById('bloodGroup').value;
+            document.getElementById('displayEmail').textContent = document.getElementById('email').value;
+            document.getElementById('displayAddress').textContent = document.getElementById('address').value;
+            document.getElementById('displayDepartment').textContent = document.getElementById('department').value;
+            document.getElementById('displayCourseInfo').textContent = document.getElementById('course').value;
+            document.getElementById('displayYear').textContent = document.getElementById('year').value;
+            document.getElementById('displayStatus').textContent = document.getElementById('hostelStatus').value;
+            document.getElementById('displayEmergencyName').textContent = document.getElementById('emergencyName').value;
+            document.getElementById('displayEmergencyPhone').textContent = document.getElementById('emergencyPhone').value;
+            document.getElementById('displayGuardian').textContent = document.getElementById('guardianDetails').value;
+            document.getElementById('displayCourse').textContent = document.getElementById('course').value + ' ' + 
+                document.getElementById('department').value.substring(0, 3).toUpperCase() + ' - ' + 
+                document.getElementById('year').value;
+        }
+
+        // Load saved data on page load
+        window.onload = function() {
+            const saved = localStorage.getItem('studentProfile');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) element.value = data[key];
+                });
+                updateDisplayValues();
+            }
+        };
+    </script>
+</body>
+</html>

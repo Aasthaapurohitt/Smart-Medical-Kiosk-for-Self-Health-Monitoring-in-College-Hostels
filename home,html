@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Medical Kiosk - VIT Bhopal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,107,0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .temperature { color: #ff6b6b; }
+        .heart-rate { color: #4ecdc4; }
+        .spo2 { color: #45b7d1; }
+        .bmi { color: #96ceb4; }
+        .report { color: #feca57; }
+        .history { color: #6c5ce7; }
+        .records { color: #00b894; }
+        .alert { color: #ff9ff3; }
+        .diagnosis { color: #667eea; }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        /* SYMMETRICAL FEATURE BUTTONS */
+        .feature-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 140px;
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .cta-button { 
+                padding: 16px 40px;
+                font-size: 1.1rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - FULLY FUNCTIONAL LINKS -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">🏥 MediKiosk</a>
+            <ul class="nav-links">
+                <li><a href="home2.html">Home</a></li>
+                <li><a href="monitoring.html">Monitoring</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="emergency.html">Emergency</a></li>
+                 <li><a href="recommendation.html"> Consultation</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section - CHANGED TO CONSULTATION -->
+    <section class="hero">
+        <div class="container">
+            <h1>Smart Medical Kiosk</h1>
+            <p>Self-Health Monitoring System for VIT Bhopal Hostels. Get instant vital checks and AI-powered health recommendations.</p>
+            <a href="recommendation.html" class="cta-button">🩺 Start Consulting Now</a>
+        </div>
+    </section>
+
+    <!-- Features Section - ALL LINKS WORK -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-grid">
+                <!-- TEMPERATURE -->
+                <div class="feature-card">
+                    <span class="feature-icon temperature">🌡️</span>
+                    <h3>Temperature Check</h3>
+                    <p>Non-contact infrared temperature measurement with instant fever detection.</p>
+                    <a href="monitoring.html" class="feature-btn">Check Temp</a>
+                </div>
+
+                <!-- HEART RATE -->
+                <div class="feature-card">
+                    <span class="feature-icon heart-rate">❤️</span>
+                    <h3>Heart Rate Monitor</h3>
+                    <p>Contactless pulse measurement with real-time heart rate monitoring.</p>
+                    <a href="monitoring.html" class="feature-btn">Measure HR</a>
+                </div>
+
+                <!-- OXYGEN LEVEL -->
+                <div class="feature-card">
+                    <span class="feature-icon spo2">🫁</span>
+                    <h3>Oxygen Level</h3>
+                    <p>Blood oxygen saturation (SpO2) monitoring with low oxygen alerts.</p>
+                    <a href="monitoring.html" class="feature-btn">Check SpO2</a>
+                </div>
+
+                <!-- BMI -->
+                <div class="feature-card">
+                    <span class="feature-icon bmi">⚖️</span>
+                    <h3>BMI Calculator</h3>
+                    <p>Automatic height & weight analysis with health classification.</p>
+                    <a href="monitoring.html" class="feature-btn">Calculate BMI</a>
+                </div>
+                
+                <!-- AI CONSULTATION -->
+                <div class="feature-card">
+                    <span class="feature-icon diagnosis">🩺</span>
+                    <h3>AI Consultation</h3>
+                    <p>Enter symptoms + vitals for instant diagnosis and recommendations.</p>
+                    <a href="recommendation.html" class="feature-btn">Get Diagnosis</a>
+                </div>
+
+                <!-- HEALTH REPORTS -->
+                <div class="feature-card">
+                    <span class="feature-icon report">📊</span>
+                    <h3>Health Reports</h3>
+                    <p>Download detailed PDF reports with health trends analysis.</p>
+                    <a href="report.html" class="feature-btn">View Reports</a>
+                </div>
+
+                <!-- MEDICAL HISTORY -->
+                <div class="feature-card">
+                    <span class="feature-icon history">📈</span>
+                    <h3>Medical History</h3>
+                    <p>Complete record of all previous scans and health checks.</p>
+                    <a href="history.html" class="feature-btn">View History</a>
+                </div>
+
+                <!-- EMERGENCY -->
+                <div class="feature-card">
+                    <span class="feature-icon alert">🚨</span>
+                    <h3>Emergency Help</h3>
+                    <p>One-click access to ambulance, security, and medical room.</p>
+                    <a href="emergency.html" class="feature-btn">Emergency</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
